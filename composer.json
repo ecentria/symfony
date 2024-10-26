@@ -167,7 +167,8 @@
         "allow-plugins": {
             "php-http/discovery": false,
             "symfony/runtime": true
-        }
+        },
+        "use-parent-dir": true
     },
     "autoload": {
         "psr-4": {
@@ -204,10 +205,6 @@
                     "symfony/contracts": "2.5.x-dev"
                 }
             }
-        },
-        {
-            "type": "path",
-            "url": "src/Symfony/Component/Runtime"
         }
     ],
     "minimum-stability": "dev"
