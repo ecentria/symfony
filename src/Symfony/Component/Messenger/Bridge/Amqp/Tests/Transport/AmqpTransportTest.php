@@ -59,7 +59,7 @@ class AmqpTransportTest extends TestCase
             $connection = $this->getMockBuilder(Connection::class)
                 ->disableOriginalConstructor()
                 ->onlyMethods(['getQueueNames', 'pull'])
-                ->getMock(),
+                ->getMock()
         );
 
         $decodedMessage = new DummyMessage('Decoded.');
