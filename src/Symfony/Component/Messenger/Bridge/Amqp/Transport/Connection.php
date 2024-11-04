@@ -277,14 +277,14 @@ class Connection
                 }
 
                 if (0 < \count($deprecatedQueueOptions = array_intersect(array_keys($queue), self::DEPRECATED_BINDING_KEYS))) {
-                    trigger_deprecation('symfony/messenger', '6.3', 'Deprecated queue option(s) "%s" passed to the AMQP Messenger transport. The "%s" option(s) should be used rather than "%s".', implode('", "', $deprecatedQueueOptions), implode('", ', self::NEW_QUEUE_OPTIONS), implode('", ', self::DEPRECATED_BINDING_KEYS));
+                    trigger_deprecation('symfony/messenger', '5.10', 'Deprecated queue option(s) "%s" passed to the AMQP Messenger transport. The "%s" option(s) should be used rather than "%s".', implode('", "', $deprecatedQueueOptions), implode('", ', self::NEW_QUEUE_OPTIONS), implode('", ', self::DEPRECATED_BINDING_KEYS));
                     if (0 < \count($newQueueOptions = array_intersect(array_keys($queue), self::NEW_QUEUE_OPTIONS))) {
                         throw new LogicException(sprintf('New "%s" and deprecated "%s" option(s) passed to the AMQP Messenger transport', implode('", "', $newQueueOptions), implode('", "', $deprecatedQueueOptions)));
                     }
                 }
 
                 if (0 < \count($invalidQueueOptions = array_diff(array_keys($queue), self::AVAILABLE_QUEUE_OPTIONS, self::NEW_QUEUE_OPTIONS, self::DEPRECATED_BINDING_KEYS))) {
-                    trigger_deprecation('symfony/messenger', '5.1', 'Invalid queue option(s) "%s" passed to the AMQP Messenger transport. Passing invalid queue options is deprecated.', implode('", "', $invalidQueueOptions));
+                    trigger_deprecation('symfony/messenger', '5.10', 'Invalid queue option(s) "%s" passed to the AMQP Messenger transport. Passing invalid queue options is deprecated.', implode('", "', $invalidQueueOptions));
                 }
 
                 if (\is_array($queue['bindings'] ?? false)) {
@@ -508,9 +508,9 @@ class Connection
         $this->queue($queueName)->consume($callback);
     }
 
-    public function ack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): bool
+    public function ack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM)
     {
-        return $this->queue($queueName)->ack($message->getDeliveryTag(), $flags);
+        $this->queue($queueName)->ack($message->getDeliveryTag(), $flags);
     }
 
     public function nack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): bool
