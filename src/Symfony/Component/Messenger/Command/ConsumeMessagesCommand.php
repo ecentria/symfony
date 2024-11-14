@@ -77,6 +77,7 @@ class ConsumeMessagesCommand extends Command implements SignalableCommandInterfa
                 new InputOption('queues', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Limit receivers to only consume from the specified queues'),
                 new InputOption('no-reset', null, InputOption::VALUE_NONE, 'Do not reset container services after each message'),
                 new InputOption('all', null, InputOption::VALUE_NONE, 'Consume messages from all receivers'),
+                new InputOption('blocking-mode', null, InputOption::VALUE_NONE, 'Consume messages in blocking mode. If option is specified only one receiver is supported'),
                 new InputOption('keepalive', null, InputOption::VALUE_OPTIONAL, 'Whether to use the transport\'s keepalive mechanism if implemented', self::DEFAULT_KEEPALIVE_INTERVAL),
             ])
             ->setHelp(<<<'EOF'
@@ -119,9 +120,16 @@ Use the --no-reset option to prevent services resetting after each message (may 
 
     <info>php %command.full_name% <receiver-name> --no-reset</info>
 
+Use the --blocking-mode option to force receiver to work in blocking mode
+("consume" method will be used instead of "get" in RabbitMQ for example).
+Only supported by some receivers, and you should pass only one receiver:
+
+    <info>php %command.full_name% <receiver-name> --blocking-mode</info>
+
 Use the --all option to consume from all receivers:
 
     <info>php %command.full_name% --all</info>
+
 EOF
             )
         ;
@@ -245,6 +253,7 @@ EOF
         $this->worker = new Worker($receivers, $bus, $this->eventDispatcher, $this->logger, $rateLimiters);
         $options = [
             'sleep' => $input->getOption('sleep') * 1000000,
+            'blocking-mode' => (bool) $input->getOption('blocking-mode'),
         ];
         if ($queues = $input->getOption('queues')) {
             $options['queues'] = $queues;

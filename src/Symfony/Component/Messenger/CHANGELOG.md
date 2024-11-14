@@ -86,6 +86,16 @@ CHANGELOG
  * Class `MessengerPass` cannot be configured with constructor arguments
  * Remove constructor arguments and getters for `RedeliveryStamp`'s properties `exceptionMessage` and `flattenException`
 
+5.10
+---
+
+* Add `BlockingReceiverInterface` to allow blocking receive operations (uses more efficient `consume` method instead of `get` method in amqp transport)
+* Add `QueueBlockingReceiverInterface` to allow blocking receive operations on a specific queue (uses more efficient `consume` method instead of `get` method in amqp transport)
+* Add `--blocking-mode` option to `messenger:consume` (will use more efficient `consume` method instead of `get` method in amqp transport)
+* Add `MultipleBindings` support for AMQP transport by adding queue options `binding_keys` and `binding_arguments` to AMQP transport to allow bindings based on multiple arguments
+
+The minor version 10 is used to avoid any conflicts with the official Symfony post 5.4 releases even though they are not expected
+
 5.4
 ---
 
