@@ -115,19 +115,13 @@ class Worker
             $envelopeHandledStart = $this->clock->now();
             foreach ($this->receivers as $transportName => $receiver) {
                 if ($blockingMode) {
-                    $callback = function (Envelope $envelope) use ($transportName, &$envelopeHandled) {
+                    $callback = function (Envelope $envelope) use ($transportName, &$envelopeHandled): ?bool {
                         $envelopeHandled = true;
                         $this->handleMessage($envelope, $transportName);
 
-                        if ($this->eventDispatcher !== null) {
-                            $this->eventDispatcher->dispatch(new WorkerRunningEvent($this, false));
-                        }
+                        $this->eventDispatcher?->dispatch(new WorkerRunningEvent($this, false));
 
-                        if ($this->shouldStop) {
-                            return false;
-                        }
-
-                        return true;
+                        return !$this->shouldStop;
                     };
 
                     if ($queueNames) {
