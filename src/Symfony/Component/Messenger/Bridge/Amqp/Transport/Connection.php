@@ -468,10 +468,10 @@ class Connection
     /**
      * Consume a message from the specified queue in blocking mode.
      *
-     * @param ?callable(\AMQPEnvelope,\AMQPQueue):?false $callback If callback return false, then processing thread will be
-     *                                                             returned from AMQPQueue::consume() to PHP script. If null is passed, then the messages delivered to this client
-     *                                                             will be made available to the first real callback registered. That allows one to have a single callback
-     *                                                             consuming from multiple queues.
+     * @param ?callable(\AMQPEnvelope,\AMQPQueue):?bool $callback If callback return false, then processing thread will be
+     *                                                            returned from AMQPQueue::consume() to PHP script. If null is passed, then the messages delivered to this client
+     *                                                            will be made available to the first real callback registered. That allows one to have a single callback
+     *                                                            consuming from multiple queues.
      *
      * @throws \AMQPException
      */
