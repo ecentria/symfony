@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Messenger\Transport\Receiver;
 
+use Symfony\Component\Messenger\Envelope;
+
 /**
  * Some transports may have multiple queues. This interface is used to read from only some queues in blocking mode.
  *
@@ -22,7 +24,7 @@ interface QueueBlockingReceiverInterface extends BlockingReceiverInterface
      * Pull messages from the specified queue names instead of consuming from all queues.
      *
      * @param string[] $queueNames
-     * @param callable(\AMQPEnvelope):bool $callback If callback return false, then processing thread will be
+     * @param callable(Envelope):bool $callback If callback return false, then processing thread will be
      * returned to PHP script.
      */
     public function pullFromQueues(array $queueNames, callable $callback): void;
