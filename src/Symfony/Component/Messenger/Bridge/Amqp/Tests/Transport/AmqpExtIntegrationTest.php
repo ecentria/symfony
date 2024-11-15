@@ -144,16 +144,9 @@ class AmqpExtIntegrationTest extends TestCase
                 'default_publish_routing_key' => 'topic_routing_key',
             ],
             'queues' => [
-                'A' => ['bindings' => [
-                    "binding1" => ['key' => "name1", "arguments" => ['arg1' => 'val1', 'arg2' => 'val2']],
-                    "binding2" => ['key' => "name2", "arguments" => ['arg3' => 'val3', 'arg4' => 'val4']]
-                ]],
-
-                'B' => ['bindings' => [
-                    "binding1" => ['key' => "name3", "arguments" => ['arg1' => 'val1', 'arg2' => 'val2']],
-                    "binding2" => ['key' => "name4", "arguments" => ['arg3' => 'val3', 'arg4' => 'val4']]
-                ]],
-            ]
+                'A' => ['binding_keys' => ['topic_routing_key']],
+                'B' => ['binding_keys' => ['topic_routing_key']],
+            ],
         ]);
         $connection->setup();
         $connection->purgeQueues();
