@@ -487,14 +487,14 @@ class Connection
         $this->queue($queueName)->consume($callback);
     }
 
-    public function ack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM)
+    public function ack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): void
     {
-        $this->queue($queueName)->ack($message->getDeliveryTag(), $flags) ?? true;
+        $this->queue($queueName)->ack($message->getDeliveryTag(), $flags);
     }
 
-    public function nack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): bool
+    public function nack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): void
     {
-        return $this->queue($queueName)->nack($message->getDeliveryTag(), $flags) ?? true;
+        $this->queue($queueName)->nack($message->getDeliveryTag(), $flags);
     }
 
     public function setup(): void
