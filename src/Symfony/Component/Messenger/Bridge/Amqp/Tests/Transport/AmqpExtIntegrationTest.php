@@ -185,9 +185,9 @@ class AmqpExtIntegrationTest extends TestCase
         $sender->send(new Envelope(new DummyMessage('Hello')));
 
         $amqpReadTimeout = 30;
-        $dsn = getenv('MESSENGER_AMQP_DSN').'?read_timeout='.$amqpReadTimeout;
-        $process = new PhpProcess(file_get_contents(__DIR__.'/../Fixtures/long_receiver.php'), null, [
-            'COMPONENT_ROOT' => __DIR__.'/../../',
+        $dsn = getenv('MESSENGER_AMQP_DSN') . '?read_timeout=' . $amqpReadTimeout;
+        $process = new PhpProcess(file_get_contents(__DIR__ . '/../Fixtures/long_receiver.php'), null, [
+            'COMPONENT_ROOT' => __DIR__ . '/../../',
             'DSN' => $dsn,
         ]);
 
@@ -211,7 +211,7 @@ class AmqpExtIntegrationTest extends TestCase
         // make sure the process exited, after consuming only the 1 message
         $this->assertFalse($process->isRunning());
         $this->assertLessThan($amqpReadTimeout, microtime(true) - $signalTime);
-        $this->assertSame($expectedOutput.<<<'TXT'
+        $this->assertSame($expectedOutput . <<<'TXT'
 Get envelope with message: Symfony\Component\Messenger\Bridge\Amqp\Tests\Fixtures\DummyMessage
 with stamps: [
     "Symfony\\Component\\Messenger\\Stamp\\SerializedMessageStamp",
@@ -256,7 +256,7 @@ TXT
             usleep(100 * 1000); // 100ms
         }
 
-        throw new \RuntimeException('Expected output never arrived. Got "'.$process->getOutput().'" instead.');
+        throw new \RuntimeException('Expected output never arrived. Got "' . $process->getOutput() . '" instead.');
     }
 
     private function createSerializer(): SerializerInterface
