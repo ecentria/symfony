@@ -115,7 +115,7 @@ class Worker
             $envelopeHandledStart = $this->clock->now();
             foreach ($this->receivers as $transportName => $receiver) {
                 if ($blockingMode) {
-                    $callback = function (Envelope $envelope) use ($transportName, &$envelopeHandled): ?bool {
+                    $callback = function (Envelope $envelope) use ($transportName, &$envelopeHandled): bool {
                         $envelopeHandled = true;
                         $this->handleMessage($envelope, $transportName);
 

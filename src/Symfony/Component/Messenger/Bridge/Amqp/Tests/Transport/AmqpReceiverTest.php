@@ -67,9 +67,9 @@ class AmqpReceiverTest extends TestCase
         });
 
         $receiver = new AmqpReceiver($connection, $serializer);
-        $receiver->pull(function (Envelope $envelope): ?bool {
+        $receiver->pull(function (Envelope $envelope): bool {
             $this->assertEquals(new DummyMessage('Hi'), $envelope->getMessage());
-            return null;
+            return true;
         });
     }
 

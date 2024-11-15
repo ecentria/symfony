@@ -19,7 +19,7 @@ use Symfony\Component\Messenger\Exception\TransportException;
 interface BlockingReceiverInterface extends ReceiverInterface
 {
     /**
-     * @param callable(\AMQPEnvelope):?bool $callback If callback return false, then processing thread will be
+     * @param callable(\AMQPEnvelope):bool $callback If callback return false, then processing thread will be
      * returned to PHP script.
      *
      * @throws TransportException If there is an issue communicating with the transport

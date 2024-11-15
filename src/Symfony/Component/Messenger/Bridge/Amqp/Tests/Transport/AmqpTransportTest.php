@@ -77,7 +77,7 @@ class AmqpTransportTest extends TestCase
             \call_user_func($callback, $amqpEnvelope, $amqpQueue);
         });
 
-        $transport->pull(function (Envelope $envelope) use ($decodedMessage): ?bool {
+        $transport->pull(function (Envelope $envelope) use ($decodedMessage): bool {
             $this->assertSame($decodedMessage, $envelope->getMessage());
             return null;
         });
