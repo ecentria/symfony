@@ -264,7 +264,7 @@ class Connection
                     }
                 }
 
-                if (0 < \count($invalidQueueOptions = array_diff(array_keys($queue), self::AVAILABLE_QUEUE_OPTIONS))) {
+                if (0 < \count($invalidQueueOptions = array_diff(array_keys($queue), array_merge(self::AVAILABLE_QUEUE_OPTIONS, self::NEW_QUEUE_OPTIONS)))) {
                     throw new LogicException(sprintf('Invalid queue option(s) "%s" passed to the AMQP Messenger transport.', implode('", "', $invalidQueueOptions)));
                 }
 
