@@ -79,7 +79,7 @@ class AmqpTransportTest extends TestCase
 
         $transport->pull(function (Envelope $envelope) use ($decodedMessage): bool {
             $this->assertSame($decodedMessage, $envelope->getMessage());
-            return null;
+            return true;
         });
     }
 
