@@ -489,7 +489,7 @@ class Connection
 
     public function ack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM)
     {
-        $this->queue($queueName)->ack($message->getDeliveryTag(), $flags);
+        $this->queue($queueName)->ack($message->getDeliveryTag(), $flags) ?? true;
     }
 
     public function nack(\AMQPEnvelope $message, string $queueName, int $flags = \AMQP_NOPARAM): bool
