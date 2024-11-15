@@ -730,7 +730,7 @@ class WorkerTest extends TestCase
     {
         $apiMessage = new DummyMessage('API');
 
-        $receiver = new \Symfony\Component\Messenger\Tests\Fixtures\DummyReceiver([[new Envelope($apiMessage)]]);
+        $receiver = new DummyReceiver([[new Envelope($apiMessage)]]);
 
         $bus = $this->createMock(MessageBusInterface::class);
 
